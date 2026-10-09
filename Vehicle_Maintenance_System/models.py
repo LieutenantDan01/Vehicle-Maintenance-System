@@ -19,3 +19,4 @@ class Service:
     mileage: str
     cost: float
     status: str
+    mechanic_name: str = ""
