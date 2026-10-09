@@ -1,4 +1,4 @@
-from db import query,run
+from database.db import fetch_all as query, execute_query as run
 from models import Vehicle,Service
 class Auth:
     @staticmethod
@@ -16,9 +16,9 @@ class Services:
     @staticmethod
     def all(): return query('SELECT m.*,v.plate_number,v.owner_name FROM maintenance_records m JOIN vehicles v ON v.id=m.vehicle_id ORDER BY m.id DESC')
     @staticmethod
-    def add(s): return run('INSERT INTO maintenance_records(vehicle_id,service_date,service_type,description,mileage,cost,status) VALUES(%s,%s,%s,%s,%s,%s,%s)',(s.vehicle_id,s.date,s.service_type,s.description,s.mileage,s.cost,s.status))
+    def add(s): return run('INSERT INTO maintenance_records(vehicle_id,service_date,service_type,description,mileage,cost,status,mechanic_name) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)',(s.vehicle_id,s.date,s.service_type,s.description,s.mileage,s.cost,s.status,s.mechanic_name))
     @staticmethod
-    def update(i,s): run('UPDATE maintenance_records SET vehicle_id=%s,service_date=%s,service_type=%s,description=%s,mileage=%s,cost=%s,status=%s WHERE id=%s',(s.vehicle_id,s.date,s.service_type,s.description,s.mileage,s.cost,s.status,i))
+    def update(i,s): run('UPDATE maintenance_records SET vehicle_id=%s,service_date=%s,service_type=%s,description=%s,mileage=%s,cost=%s,status=%s,mechanic_name=%s WHERE id=%s',(s.vehicle_id,s.date,s.service_type,s.description,s.mileage,s.cost,s.status,s.mechanic_name,i))
     @staticmethod
     def delete(i): run('DELETE FROM maintenance_records WHERE id=%s',(i,))
 class Dashboard:
